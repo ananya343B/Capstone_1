@@ -51,7 +51,7 @@ module dlfloat_mult(a,b,c,clk);
         mant = m_temp[19] ? m_temp[18:10] : m_temp[17:9];
         exp = m_temp[19] ? e_temp+1'b1 : e_temp;
 
-        s=sa ^ sb;
+        s=sa | sb;
 
        c =(a==0|b==0)?0:{s,exp,mant};
     end 
