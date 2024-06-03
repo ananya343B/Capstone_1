@@ -53,7 +53,7 @@ module dlfloat_mult(a,b,c,clk);
 
         s=sa | sb;
 
-       c =(a==0|b==0)?0:{s,exp,mant};
+        c = (ea==0 | eb==0 ) ? 0 :(a==0 | b==0) ? 0 :(a==1 | b==1 ) ? 1 :{s,exp,mant}; //this worked for subnormal zero& normal excpt inf. idk why??
     end 
 endmodule 
 
