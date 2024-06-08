@@ -59,7 +59,13 @@ module dlfloat_adder(input clk,input rst_n, input [15:0]a, input [15:0]b, output
 	m2_80 = b[8:0];
 	s1_80 = a[15];
 	s2_80 = b[15];
-        
+        // Nan and infinity check
+    if(e1_80 == 6'b111111 && e2_80 == 6'b111111 && m1_80 == 9'b111111111 && m2_80 == 9'b111111111)
+    begin
+        c_80 = 16'b1111111111111111;
+    end 
+    else
+    begin
         if (e1_80  > e2_80) begin
             Num_shift_80           = e1_80 - e2_80;              // number of mantissa shift
             Larger_exp_80           = e1_80;                     // store lower exponent
@@ -164,7 +170,7 @@ module dlfloat_adder(input clk,input rst_n, input [15:0]a, input [15:0]b, output
 	
 	c_80 = (a==0 & b==0)?0:{Final_sign_80,Final_expo_80,Final_mant_80};
     end
-    
+    end
     always @(posedge clk)begin 
     if (Add_mant_80[9] ) begin
 		renorm_shift_80 = 4'd1;
