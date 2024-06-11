@@ -51,9 +51,14 @@ module dlfloat_mult(a,b,c,clk);
         mant = m_temp[19] ? m_temp[18:10] : m_temp[17:9];
         exp = m_temp[19] ? e_temp+1'b1 : e_temp;
 
-        s=sa | sb;
-
-        c = (ea==0 | eb==0 ) ? 0 :(a==0 | b==0) ? 0 :(a==1 | b==1 ) ? 1 :{s,exp,mant}; //this worked for subnormal zero& normal excpt inf. idk why??
+        s=sa ^ sb;
+         if( a==16'hFFFF | b==16'hFFFF ) begin
+        c=16'hFFFF;
+      end
+      else begin
+        c = (a==0 | b==0) ? 0 :{s,exp,mant};
+      end 
+        
     end 
 endmodule 
 
