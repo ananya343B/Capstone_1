@@ -200,8 +200,8 @@ module dlfloat_adder(input clk,input rst_n, input [15:0]a, input [15:0]b, output
 			Final_sign_80 = s2_80;
 		end
 	end	
-      if( a==1 | b==1) begin
-        c_80=1;
+	    if( a==16'hFFFF | b==16'hFFFF) begin
+        c_80=16'hFFFF;
       end
 	c_80 = (a==0 & b==0)?0:{Final_sign_80,Final_expo_80,Final_mant_80};
     end
