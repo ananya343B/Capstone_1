@@ -38,7 +38,7 @@ module dlfloat_mult_tb();
      // Test Case 2:same sign negative
     a = 16'b1011111010100011; // a=-1.32
     b = 16'b1100000001110011; // b=-2.45 
-    c1 =16'b1100000100111010; // c1= -3.226
+    c1 =16'b0100000100111010; // c1= 3.226
     #10;
     if (c == c1) 
       $display("Test case 2: PASS. a = %b, b = %b, c = %b, expected:%b", a, b, c,c1);
@@ -65,9 +65,9 @@ module dlfloat_mult_tb();
      else 
        $display("Test case 4: FAIL. a = %b, b = %b,  c = %b, expected: %b", a, b, c, c1);
     
-     // Test Case 5:subnormals
-     a = 16'b0000000110101100; // a=subnormal
-     b = 16'b0100000001110011; // b=2.45 
+     // Test Case 5:both are zero
+     a = 16'b0000000000000000; // a=0
+     b = 16'b0000000000000000; // b=0
     c1 = 16'b0000000000000000; // c1=0
     #10;
     if (c == c1) 
