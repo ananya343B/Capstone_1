@@ -18,11 +18,9 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-
-module dlfloat_mult(a,b,c,clk);
+module dlfloat_mult(a,b,c,clk,rst_n);
     input [15:0]a,b;
-    input clk;
+    input clk,rst_n;
     output  reg [15:0]c;
     
     reg [9:0]ma,mb; //1 extra because 1.smthng
@@ -32,12 +30,12 @@ module dlfloat_mult(a,b,c,clk);
     reg sa,sb,s;
     reg [16:0] temp; //1 extra bit ??
     //reg [6:0] exp_adjust; //why ??
-
-   
-
-
     always @(posedge clk)
     begin 
+      if(!rst_n) begin
+        c =16'b0;
+      end 
+      else begin
         ma ={1'b1,a[8:0]};
         mb= {1'b1,b[8:0]};
         sa = a[15];
@@ -53,12 +51,11 @@ module dlfloat_mult(a,b,c,clk);
 
         s=sa ^ sb;
          if( a==16'hFFFF | b==16'hFFFF ) begin
-        c=16'hFFFF;
-      end
-      else begin
+          c=16'hFFFF;
+        end
+        else begin
         c = (a==0 | b==0) ? 0 :{s,exp,mant};
-      end 
-        
+        end 
+      end  
     end 
 endmodule 
-
